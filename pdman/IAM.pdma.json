@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-11-18 00:47:52",
-  "updatedTime": "2024-11-18 01:22:20",
+  "updatedTime": "2024-11-18 13:51:18",
   "dbConns": [],
   "profile": {
     "default": {
@@ -110,7 +110,7 @@
       {
         "type": "appCode",
         "applyFor": "797A1496-D649-4261-89B4-544132EC3F36",
-        " JpaBean": "{{  var today=new Date();\n    var fullYear=today.getFullYear();\n    var month=today.getMonth() + 1;\n    var days=today.getDate();\n    \n    var pkVarName = \"undefinedId\";\n    var pkDataType = \"String\";\n    it.entity.fields.forEach(function(field){\n        if(field.primaryKey){\n            pkVarName = it.func.camel(field.defKey,false);\n            pkDataType = field[\"type\"];\n            return;\n        }\n    });\n    \n    var pkgName = it.entity.env.base.nameSpace;\n    var beanClass = it.entity.env.base.codeRoot;\n    var beanVarName = beanClass.charAt(0).toLowerCase()+beanClass.slice(1);\n    var serviceClass = beanClass+'Service';\n    var serviceVarName= beanVarName+'Service';\n    \n}}package {{=pkgName}}.entity;\n$blankline\nimport io.swagger.annotations.ApiModel;\nimport io.swagger.annotations.ApiModelProperty;\nimport javax.persistence.*;\nimport java.io.Serializable;\nimport java.util.Date;\n$blankline\n\n /**\n * {{=it.entity.defName}};{{=it.entity.comment}}\n * @author : http://www.chiner.pro\n * @date : {{=fullYear}}-{{=month}}-{{=days}}\n */\n@ApiModel(value = \"{{=it.entity.defName}}\",description = \"{{=it.entity.comment}}\")\n@Table(name=\"{{=it.entity.defKey}}\")\npublic class {{=beanClass}} implements Serializable,Cloneable{\n{{~it.entity.fields:field:index}}\n    /** {{=it.func.join(field.defName,field.comment,';')}} */\n    {{? field.primaryKey }}\n    @Id\n    @GeneratedValue\n    {{?}}\n    @ApiModelProperty(name = \"{{=field.defName}}\",notes = \"{{=field.comment}}\")\n    private {{=field.type}} {{=it.func.camel(field.defKey,false)}} ;\n{{~}}\n$blankline\n\n{{~it.entity.fields:field:index}}\n    /** {{=it.func.join(field.defName,field.comment,';')}} */\n    public {{=field.type}} get{{=it.func.camel(field.defKey,true)}}(){\n        return this.{{=it.func.camel(field.defKey,false)}};\n    }\n    /** {{=it.func.join(field.defName,field.comment,';')}} */\n    public void set{{=it.func.camel(field.defKey,true)}}({{=field.type}} {{= it.func.camel(field.defKey,false) }}){\n        this.{{=it.func.camel(field.defKey,false)}}={{=it.func.camel(field.defKey,false)}};\n    }\n{{~}}\n}"
+        " JpaBean": "{{  var today=new Date();\n    var fullYear=today.getFullYear();\n    var month=today.getMonth() + 1;\n    var days=today.getDate();\n    \n    var pkVarName = \"undefinedId\";\n    var pkDataType = \"String\";\n    it.entity.fields.forEach(function(field){\n        if(field.primaryKey){\n            pkVarName = it.func.camel(field.defKey,false);\n            pkDataType = field[\"type\"];\n            return;\n        }\n    });\n    \n    var pkgName = it.entity.env.base.nameSpace;\n    var beanClass = it.entity.env.base.codeRoot;\n    var beanVarName = beanClass.charAt(0).toLowerCase()+beanClass.slice(1);\n    var serviceClass = beanClass+'Service';\n    var serviceVarName= beanVarName+'Service';\n    \n}}package {{=pkgName}}.entity;\n$blankline\nimport java.util.Date;\n$blankline\n\n/**\n * {{=it.entity.defName}};{{=it.entity.comment}}\n */\npublic class {{=beanClass}} {\n{{~it.entity.fields:field:index}}\n    /** {{=it.func.join(field.defName,field.comment,';')}} */\n    {{? field.primaryKey }}\n{{?}}\n    private {{=field.type}} {{=it.func.camel(field.defKey,false)}};\n{{~}}\n$blankline\n\n{{~it.entity.fields:field:index}}\n    public {{=field.type}} get{{=it.func.camel(field.defKey,true)}}(){\n        return this.{{=it.func.camel(field.defKey,false)}};\n    }\n    public void set{{=it.func.camel(field.defKey,true)}}({{=field.type}} {{= it.func.camel(field.defKey,false) }}){\n        this.{{=it.func.camel(field.defKey,false)}}={{=it.func.camel(field.defKey,false)}};\n    }\n{{~}}\n}"
       },
       {
         "type": "appCode",
@@ -2033,7 +2033,8 @@
         "defKey": "BIGINT",
         "defName": "大整数",
         "id": "BBE204F9-0CF1-4960-B443-378456499E8B",
-        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "BIGINT"
+        "29D1CE08-4C35-4D2D-AAA9-23D93305B52E": "BIGINT",
+        "797A1496-D649-4261-89B4-544132EC3F36": "Long"
       },
       {
         "defKey": "TINYINT",

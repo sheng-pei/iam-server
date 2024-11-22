@@ -1,0 +1,27 @@
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+application:
+  web:
+    csrf:
+      ignore: /cas/login,/cas/ticket,/cas/verifyTicket
+
+key-center:
+  local:
+    ec:
+      pri: 848830bddbf9c87627a356bb3007ffb65e4af39e60df475340220a6f187c22bf
+      pub: 04bd2df35b56122e520452083a9c8e21861a9325ebe32851be97317e6bbe15e88005c3bc077d07a90107150b66a250b697dfbbe2600026eb2abc5d10b24357b108
+
+cas:
+  ticket:
+    scope: "cas:ticket:"
+login:
+  scope: "login:"
+  expire-minutes: 3
+  max-attempts: 3
+bcrypt:
+  version: 2y
+  log-rounds: 10
