@@ -18,12 +18,15 @@
     <modules>
         <module>tm-center</module>
         <module>authn-center</module>
+        <module>data-center</module>
+        <module>interfaces</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <authn-interface.version>1.0.0-SNAPSHOT</authn-interface.version>
     </properties>
 
     <dependencies>
@@ -36,5 +39,15 @@
             <artifactId>common</artifactId>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ppl.server.iam</groupId>
+                <artifactId>authn-interface</artifactId>
+                <version>${authn-interface.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>

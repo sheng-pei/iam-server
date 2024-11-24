@@ -1,4 +1,4 @@
-package ppl.server.iam.tm.dao.entities;
+package ppl.server.iam.data.dao.entities;
 
 import java.util.Date;
 
@@ -23,9 +23,17 @@ public class UserPassword {
      */
     private Date creationTime;
     /**
+     * 修改时间
+     */
+    private Date modificationTime;
+    /**
      * 创建人
      */
     private Long createdBy;
+    /**
+     * 修改人
+     */
+    private Long modifiedBy;
     /**
      * 是否删除;删除时写入ID
      */
@@ -63,12 +71,28 @@ public class UserPassword {
         this.creationTime = creationTime;
     }
 
+    public Date getModificationTime() {
+        return modificationTime;
+    }
+
+    public void setModificationTime(Date modificationTime) {
+        this.modificationTime = modificationTime;
+    }
+
     public Long getCreatedBy() {
         return this.createdBy;
     }
 
     public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Long getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(Long modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public Long getDeleted() {

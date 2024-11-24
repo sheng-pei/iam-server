@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ppl.server.iam.data.dao.mappers.UserMapper">
+
+    <insert id="insert" parameterType="ppl.server.iam.data.dao.entities.User" useGeneratedKeys="true" keyProperty="id">
+        insert into `user` (`username`, `name`, `email`, `phone`, `enabled`,
+                            `expires`, `creation_time`, `modification_time`, `created_by`, `modified_by`)
+        values (#{username}, #{name}, #{email}, #{phone}, #{enabled},
+                #{expires}, #{creationTime}, #{modificationTime}, #{createdBy}, #{modifiedBy})
+    </insert>
+
+    <update id="delete">
+        update `user`
+        set `deleted`           = id,
+            `modification_time` = #{modificationTime},
+            `modified_by`       = #{modifiedBy}
+        where `id` = #{id}
+          and `deleted` = 0
+    </update>
+
+    <update id="update" parameterType="ppl.server.iam.data.dao.entities.User">
+        update `user`
+        set
+        <trim suffixOverrides=",">
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+            <if test="email != null">
+                `email` = #{email},
+            </if>
+            <if test="phone != null">
+                `phone` = #{phone},
+            </if>
+            <if test="enabled != null">
+                `enabled` = #{enabled},
+            </if>
+            <if test="expires != null">
+                `expires` = #{expires},
+            </if>
+            <if test="modificationTime != null">
+                `modification_time` = #{modificationTime},
+            </if>
+            <if test="modifiedBy != null">
+                `modified_by` = #{modifiedBy},
+            </if>
+        </trim>
+        where `id` = #{id} and `deleted` = 0
+    </update>
+
+    <select id="getById" resultType="ppl.server.iam.data.dao.entities.User">
+        select `id`,
+               `username`,
+               `name`,
+               `email`,
+               `phone`,
+               `enabled`,
+               `expires`,
+               `creation_time`,
+               `modification_time`,
+               `created_by`,
+               `modified_by`
+        from `user`
+        where `id` = #{id} and `deleted` = 0
+    </select>
+
+    <select id="getByIds" resultType="ppl.server.iam.data.dao.entities.User">
+        select `id`,
+                `username`,
+                `name`,
+                `email`,
+                `phone`,
+                `enabled`,
+                `expires`,
+                `creation_time`,
+                `modification_time`,
+                `created_by`,
+                `modified_by`
+        from `user`
+        where
+        <if test="ids != null and ids.size() > 0">
+            `id` in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+            and
+        </if>
+        `deleted` = 0
+    </select>
+
+    <select id="getByUsername" resultType="ppl.server.iam.data.dao.entities.User">
+        select `id`,
+               `username`,
+               `name`,
+               `email`,
+               `phone`,
+               `enabled`,
+               `expires`,
+               `creation_time`,
+               `modification_time`,
+               `created_by`,
+               `modified_by`
+        from `user`
+        where `username` = #{username}
+          and `deleted` = 0
+    </select>
+
+</mapper>

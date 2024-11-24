@@ -4,7 +4,7 @@
   "avatar": "",
   "version": "4.9.4",
   "createdTime": "2024-11-18 00:47:52",
-  "updatedTime": "2024-11-18 13:51:18",
+  "updatedTime": "2024-11-23 11:31:22",
   "dbConns": [],
   "profile": {
     "default": {
@@ -141,7 +141,7 @@
       {
         "applyFor": "29D1CE08-4C35-4D2D-AAA9-23D93305B52E",
         "type": "dbDDL",
-        "createTable": "DROP TABLE IF EXISTS {{=it.entity.defKey}};\nCREATE TABLE {{=it.entity.defKey}}(\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.primaryKey }}{{ pkList.push(field.defKey) }}{{?}}\n    `{{=field.defKey}}` {{?field.autoIncrement}}INT AUTO_INCREMENT{{??}}{{=field.type}}{{?field.len>0}}{{='('}}{{=field.len}}{{?field.scale>0}}{{=','}}{{=field.scale}}{{?}}{{=')'}}{{?}} {{= field.notNull ? 'NOT NULL' : '' }} {{= field.defaultValue ? it.func.join('DEFAULT',field.defaultValue,' ') : '' }}{{?}} COMMENT '{{=it.func.join(field.defName,field.comment,';')}}' {{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n)  COMMENT = '{{=it.func.join(it.entity.defName,it.entity.comment,';') }}';\n$blankline\n",
+        "createTable": "DROP TABLE IF EXISTS `{{=it.entity.defKey}}`;\nCREATE TABLE `{{=it.entity.defKey}}` (\n{{ pkList = [] ; }}\n{{~it.entity.fields:field:index}}\n    {{? field.primaryKey }}{{ pkList.push(field.defKey) }}{{?}}\n    `{{=field.defKey}}` {{?field.autoIncrement}}BIGINT AUTO_INCREMENT{{??}}{{=field.type}}{{?field.len>0}}{{='('}}{{=field.len}}{{?field.scale>0}}{{=','}}{{=field.scale}}{{?}}{{=')'}}{{?}} {{= field.notNull ? 'NOT NULL' : '' }} {{= field.defaultValue ? it.func.join('DEFAULT',field.defaultValue,' ') : '' }}{{?}} COMMENT '{{=it.func.join(field.defName,field.comment,';')}}' {{= index < it.entity.fields.length-1 ? ',' : ( pkList.length>0 ? ',' :'' ) }}\n{{~}}\n{{? pkList.length >0 }}\n    PRIMARY KEY ({{~pkList:pkName:i}}{{= pkName }}{{= i<pkList.length-1 ? ',' : '' }}{{~}})\n{{?}}\n) ENGINE=InnoDB CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT = '{{=it.func.join(it.entity.defName,it.entity.comment,';') }}';\n$blankline\n",
         "createView": "CREATE VIEW {{=it.view.defKey}} AS\nSELECT \n{{~it.view.fields:field:index}}\n    {{=field.refEntity}}.{{=field.refEntityField}} AS {{=field.defKey}}{{= index < it.view.fields.length-1 ? ',' : ''}}\n{{~}}\nFROM {{~it.view.refEntities:refEntity:index}}{{=refEntity}}{{= index < it.view.refEntities.length-1 ? ',' : ''}}{{~}};\n$blankline\n",
         "deleteTable": "DROP TABLE IF EXISTS {{=it.entity.defKey}};",
         "createIndex": "{{~ it.entity.indexes:index}}\nCREATE {{? index.unique}}UNIQUE {{?}}INDEX {{=index.defKey}} ON {{=it.entity.defKey}}({{ fieldsKeys = index.fields.map(function(field){return field.fieldDefKey}) ; }}{{=it.func.join(...fieldsKeys,',')}});\n{{~}}",
@@ -1155,6 +1155,26 @@
           "refStandard": "36E3145D-BA38-4482-84C2-55FBB19BDC2D"
         },
         {
+          "defKey": "modification_time",
+          "defName": "修改时间",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": true,
+          "autoIncrement": false,
+          "defaultValue": "CURRENT_TIMESTAMP",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "89D69E81-EA34-42EE-9FA2-93B8BD27E098",
+          "extProps": {},
+          "domain": "7CFFA0D3-6A93-4DDC-BC10-DF21211064DC",
+          "id": "5566BBBB-9A8C-4E2D-8926-17694D0FA6A2",
+          "isStandard": true,
+          "refStandard": "73E36105-00C0-4E54-86FF-E01976F00ECF"
+        },
+        {
           "defKey": "created_by",
           "defName": "创建人",
           "comment": "",
@@ -1173,6 +1193,26 @@
           "id": "E6A57B50-C54E-49E8-AC02-43929420E7CC",
           "isStandard": true,
           "refStandard": "8F5EC1BE-CA7F-48AC-9103-0FF8E83880F7"
+        },
+        {
+          "defKey": "modified_by",
+          "defName": "修改人",
+          "comment": "",
+          "type": "",
+          "len": "",
+          "scale": "",
+          "primaryKey": false,
+          "notNull": false,
+          "autoIncrement": false,
+          "defaultValue": "",
+          "hideInGraph": false,
+          "refDict": "",
+          "baseType": "BBE204F9-0CF1-4960-B443-378456499E8B",
+          "extProps": {},
+          "domain": "354B2784-5EA3-4FCE-867F-558BB49CF4A3",
+          "id": "DCA82A58-A8D1-49F1-925F-4AF6527C5D1E",
+          "isStandard": true,
+          "refStandard": "7D9BE73A-D11A-40F1-8B9D-B0D383FDA8F7"
         },
         {
           "defKey": "deleted",
@@ -1406,21 +1446,21 @@
           "id": "6A51D61C-BB6E-4A80-828E-63F0BC7FB55A"
         },
         {
-          "defKey": "parent_code",
-          "defName": "父组织机构码",
-          "comment": "",
-          "type": "VARCHAR",
-          "len": 64,
+          "defKey": "parent_id",
+          "defName": "父组织机构ID",
+          "comment": "0表示当前节点为根节点",
+          "type": "",
+          "len": "",
           "scale": "",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoIncrement": false,
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "baseType": "BBE204F9-0CF1-4960-B443-378456499E8B",
           "extProps": {},
-          "domain": "",
+          "domain": "354B2784-5EA3-4FCE-867F-558BB49CF4A3",
           "id": "9160FDA1-8B8E-4F5D-BF35-5CFDEE0CA2D1"
         },
         {
@@ -1737,11 +1777,11 @@
           "id": "95906807-D560-4345-B0AE-6FE602FD3ABF"
         },
         {
-          "defKey": "organization_code",
-          "defName": "组织机构码",
+          "defKey": "organization_id",
+          "defName": "组织机构ID",
           "comment": "",
-          "type": "VARCHAR",
-          "len": 64,
+          "type": "",
+          "len": "",
           "scale": "",
           "primaryKey": false,
           "notNull": true,
@@ -1749,9 +1789,9 @@
           "defaultValue": "",
           "hideInGraph": false,
           "refDict": "",
-          "baseType": "FC9790A7-36B8-4A48-8F9A-BC1042BCFE64",
+          "baseType": "BBE204F9-0CF1-4960-B443-378456499E8B",
           "extProps": {},
-          "domain": "",
+          "domain": "354B2784-5EA3-4FCE-867F-558BB49CF4A3",
           "id": "E7EE2763-569F-409A-AB82-95C1C5BDC4DC"
         },
         {
@@ -1856,7 +1896,32 @@
         }
       ],
       "correlations": [],
-      "indexes": [],
+      "indexes": [
+        {
+          "defKey": "uniq_user_organization",
+          "defName": null,
+          "unique": true,
+          "comment": "",
+          "fields": [
+            {
+              "fieldDefKey": "95906807-D560-4345-B0AE-6FE602FD3ABF",
+              "ascOrDesc": "A",
+              "id": "CFAAE4E4-6B31-46F8-9AA6-07575DF6B235"
+            },
+            {
+              "fieldDefKey": "E7EE2763-569F-409A-AB82-95C1C5BDC4DC",
+              "ascOrDesc": "A",
+              "id": "D24B6BBF-0E19-446E-857C-A1AD4F4EB24F"
+            },
+            {
+              "fieldDefKey": "EC0F56CA-9284-486F-A096-4733D25CB7CA",
+              "ascOrDesc": "A",
+              "id": "3AD2489F-FBE6-4C23-A84E-AB05D338BEB2"
+            }
+          ],
+          "id": "0889D883-F2F3-4D82-9174-E54DA063131B"
+        }
+      ],
       "type": "P"
     }
   ],

@@ -1,39 +1,27 @@
-package ppl.server.iam.tm.dao.entities;
+package ppl.server.iam.data.dao.entities;
 
 import java.util.Date;
 
 /**
- * 用户表;
+ * 组织表;
  */
-public class User {
+public class Organization {
     /**
      * ID;大于0
      */
     private Long id;
     /**
-     * 用户名
+     * 组织机构码;a-zA-Z0-9
      */
-    private String username;
+    private String code;
     /**
-     * 姓名
+     * 组织机构名称
      */
     private String name;
     /**
-     * 邮箱
+     * 父组织机构码
      */
-    private String email;
-    /**
-     * 电话
-     */
-    private String phone;
-    /**
-     * 是否启用
-     */
-    private Boolean enabled;
-    /**
-     * 过期时间
-     */
-    private Date expires;
+    private Long parentId;
     /**
      * 创建时间
      */
@@ -63,12 +51,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return this.username;
+    public String getCode() {
+        return this.code;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -79,36 +67,12 @@ public class User {
         this.name = name;
     }
 
-    public String getEmail() {
-        return this.email;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return this.phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Boolean getEnabled() {
-        return this.enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Date getExpires() {
-        return this.expires;
-    }
-
-    public void setExpires(Date expires) {
-        this.expires = expires;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public Date getCreationTime() {

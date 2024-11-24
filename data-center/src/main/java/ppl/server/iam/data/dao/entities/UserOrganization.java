@@ -1,27 +1,23 @@
-package ppl.server.iam.tm.dao.entities;
+package ppl.server.iam.data.dao.entities;
 
 import java.util.Date;
 
 /**
- * 组织表;
+ * 用户组织结构表;
  */
-public class Organization {
+public class UserOrganization {
     /**
      * ID;大于0
      */
     private Long id;
     /**
-     * 组织机构码;a-zA-Z0-9
+     * 用户ID
      */
-    private String code;
+    private Long userId;
     /**
-     * 组织机构名称
+     * 组织机构码
      */
-    private String name;
-    /**
-     * 父组织机构码
-     */
-    private String parentCode;
+    private Long organizationId;
     /**
      * 创建时间
      */
@@ -51,28 +47,20 @@ public class Organization {
         this.id = id;
     }
 
-    public String getCode() {
-        return this.code;
+    public Long getUserId() {
+        return this.userId;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return this.name;
+    public Long getOrganizationId() {
+        return organizationId;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getParentCode() {
-        return this.parentCode;
-    }
-
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode;
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
     }
 
     public Date getCreationTime() {

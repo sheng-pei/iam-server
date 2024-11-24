@@ -102,15 +102,15 @@ public class SecurityConfiguration {
                 .postProcessedSuccessHandler(new AjaxAuthenticationSuccessHandler())
                 .postProcessedFailureHandler(new AjaxAuthenticationFailureHandler())
         .and().
+                apply(new TicketConfigurer<>())
+        .and().
                 apply(new EnhancedExceptionHandlingConfigurer<>())
                 .authenticationEntryPoint(new RAuthenticationEntryPoint())
                 .accessDeniedHandler(new RAccessDeniedHandler())
-        .and()
-                .apply(new TicketConfigurer<>())
-        .and()
-                .apply(new ExceptionFallbackConfigurer<>())
-        .and()
-                .authorizeHttpRequests((requests) -> requests.anyRequest().authenticated())
+        .and().
+                apply(new ExceptionFallbackConfigurer<>())
+        .and().
+                authorizeHttpRequests((requests) -> requests.anyRequest().authenticated())
                 .csrf(c -> {
                     RequestMatcher[] ignoreCsrfRequestMatchers = ignoreCsrfProtection.stream()
                             .map(this::antMatcher)

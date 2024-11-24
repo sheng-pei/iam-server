@@ -1,23 +1,39 @@
-package ppl.server.iam.tm.dao.entities;
+package ppl.server.iam.data.dao.entities;
 
 import java.util.Date;
 
 /**
- * 用户组织结构表;
+ * 用户表;
  */
-public class UserOrganization {
+public class User {
     /**
      * ID;大于0
      */
     private Long id;
     /**
-     * 用户ID
+     * 用户名
      */
-    private Long userId;
+    private String username;
     /**
-     * 组织机构码
+     * 姓名
      */
-    private String organizationCode;
+    private String name;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 电话
+     */
+    private String phone;
+    /**
+     * 是否启用
+     */
+    private Boolean enabled;
+    /**
+     * 过期时间
+     */
+    private Date expires;
     /**
      * 创建时间
      */
@@ -47,20 +63,52 @@ public class UserOrganization {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return this.userId;
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getOrganizationCode() {
-        return this.organizationCode;
+    public String getName() {
+        return this.name;
     }
 
-    public void setOrganizationCode(String organizationCode) {
-        this.organizationCode = organizationCode;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Date getExpires() {
+        return this.expires;
+    }
+
+    public void setExpires(Date expires) {
+        this.expires = expires;
     }
 
     public Date getCreationTime() {
